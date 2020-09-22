@@ -1,7 +1,34 @@
-rsvp.form:
+rsvplist.form:
     path: '/rsvplist'
     defaults:
         _form: 'Drupal\rsvplist\Form\RSVPForm'
         _title: 'RSVP to this event'
     requirements:
         _permission: 'view rsvplist'
+
+rsvplist.content:
+    path: '/content'
+    defaults:
+        _controller: 'Drupal\rsvplist\Controller\RSVPController::content'
+        _title: 'Content test'
+    requirements:
+        _permission: 'view rsvplist'
+        
+#Router trả về form config block
+rsvplist.admin_settings:
+    path: '/admin/config/content/rsvplist'
+    defaults:
+        _form: 'Drupal\rsvplist\Form\RSVPListSettingsForm'
+        _title: 'RSVP List Settings'
+    requirements:
+        _permission: 'administer rsvplist'
+
+#Router trả về kết quả report
+rsvplist.report:
+    path: '/admin/report/rsvplist'
+    defaults:
+        _controller: 'Drupal\rsvplist\Controller\ReportController::report'
+        _title: 'List of RSVPs'
+    requirements:
+        _permission: 'view rsvplist'
+    
