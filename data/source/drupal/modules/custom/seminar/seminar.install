@@ -1,0 +1,186 @@
+<?php 
+
+   /**
+    * Implements hook_schema().
+    */
+   function seminar_schema() {
+        $schema = array();
+        $schema['seminar'] = array(
+            'description' => 'Store Senminar general information',
+            'fields' => array(
+                'sid' => array(
+                    'description' => 'The primarykey identifier for Seminar records',
+                    'type' => 'serial',
+                    'unsigned' => TRUE,
+                    'not null' => TRUE,
+                ),
+                'nid' => array(
+                    'description' => 'The node id for this seminar.',
+                    'type' => 'varchar',
+                    'length' => 64,
+                    'not null' => FALSE,
+                ),
+                'uid' => array(
+                    'description' => 'The users id that add this seminar.',
+                    'type' => 'varchar',
+                    'length' => 64,
+                    'not null' => FALSE,
+                ),
+                'name' => array(
+                    'description' => 'Name of Seminar',
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => FALSE,
+                ),
+                'description' => array(
+                    'desciption' => 'General content of Seminar',
+                    'type' => 'varchar',
+                    'length' => 2000,
+                    'notnull' => FALSE,
+                ),
+                'place_date' => array(
+                    'description'=> 'Place date of Seminar',
+                    'mysql_type' => 'timestamp',
+                    'not null' => FALSE,
+                ),
+                'regis_start_date' => array(
+                    'description'=> 'Seminar registration start date',
+                    'mysql_type' => 'timestamp',
+                    'not null' => FALSE,
+                ),
+                'regis_end_date' => array(
+                    'description'=> 'Seminar registration end date',
+                    'mysql_type' => 'timestamp',
+                    'not null' => FALSE,
+                ),
+                'created_at' => array(
+                    'description'=> 'Seminar created date',
+                    'mysql_type' => 'timestamp',
+                    'not null' => FALSE,
+                ),
+                'updated_at' => array(
+                    'description'=> 'Seminar updated date',
+                    'mysql_type' => 'timestamp',
+                    'not null' => FALSE,
+                ),
+            ),
+            'primary key' => array('sid'),
+        );
+        $schema['seminar_detail'] = array(
+            'description' => 'The Seminar detail',
+            'fields' => array(
+                'sdid' => array(
+                    'description' => 'The primarykey identifier for Seminar detail records',
+                    'type' => 'serial',
+                    'unsigned' => TRUE,
+                    'not null' => TRUE,
+                ),
+                'nid' => array(
+                    'description' => 'The node id for this seminar detail.',
+                    'type' => 'varchar',
+                    'length' => 64,
+                    'not null' => FALSE,
+                ),
+                'sid' => array(
+                    'description' => 'The seminar id',
+                    'type' => 'varchar',
+                    'length' => 64,
+                    'not null' => FALSE,
+                ),
+                'spid' => array(
+                    'description' => 'The speaker id for this seminar detail.',
+                    'type' => 'varchar',
+                    'length' => 64,
+                    'not null' => FALSE,
+                ),
+                'title' => array(
+                    'description' => 'Title of this seminar detail',
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => FALSE,
+                ),
+                'content' => array(
+                    'description' => 'Content of seminar detail',
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => FALSE,
+                ),
+            ),
+            'primary key' => array('sdid'),
+        );
+        $schema['speakers'] = array(
+            'description' => 'The Speaker of Seminar Detail',
+            'fields' => array(
+                'spid' => array(
+                    'description' => 'The speaker id for seminar detail.',
+                    'type' => 'serial',
+                    'not null' => TRUE,
+                ),
+                'name' => array(
+                    'description' => 'Speaker name.',
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => FALSE,
+                ),
+                'img' => array(
+                    'description' => 'Speaker Images.',
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => FALSE,
+                ),
+                'info' => array(
+                    'description' => 'Info of Speaker.',
+                    'type' => 'varchar',
+                    'length' => 1000,
+                    'not null' => FALSE,
+                ),
+            ),
+            'primary key' => array('spid'),
+        );
+        $schema['spectators'] = array(
+            'description' => 'Store Spectator infomation',
+            'fields' => array(
+                'specid' => array(
+                    'description' => 'The speaker id for seminar detail.',
+                    'type' => 'serial',
+                    'not null' => TRUE,
+                ),
+                'uid' => array(
+                    'description' => 'The users id that registration Seminar.',
+                    'type' => 'varchar',
+                    'length' => 64,
+                    'not null' => FALSE,
+                ),
+                'name' => array(
+                    'description' => 'The name of spectator registration Seminar',
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => FALSE
+                ),
+                'age' => array(
+                    'description' => 'Age of spectator registration Seminar',
+                    'type' => 'int',
+                    'not null' => FALSE,
+                ),
+                'gender' => array(
+                    'description' => 'The sex of spectator registration Seminar',
+                    'type' => 'int',
+                    'not null' => FALSE,
+                ),
+                'company' => array(
+                    'description' => 'The company of spectator registration Seminar',
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => FALSE,
+                ),
+                'email' => array(
+                    'description' => 'The email of spectator registration Seminar',
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => FALSE,
+                ),
+            ),
+            'primary key' => array('specid'),
+        );
+        return $schema;
+   }

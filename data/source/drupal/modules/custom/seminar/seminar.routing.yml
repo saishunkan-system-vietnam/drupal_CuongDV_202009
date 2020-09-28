@@ -1,0 +1,7 @@
+seminar.detail:
+    path: /seminar/detail
+    defaults:
+        _controller: 'Drupal\seminar\Controller\SeminarController::getDetail'
+        _title: 'Get Detail Seminar'
+    requirements:
+        _permission: 'access content'
