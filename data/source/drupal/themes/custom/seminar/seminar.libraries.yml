@@ -1,7 +1,8 @@
 global-css:
-    version: VERSION
-    css:
-        theme:
-            css/element.css: {}
-            css/layout.css: {}
-            css/print.css: { media: print }
+  version: 1.x
+  css:
+    theme:
+      asset/css/bootstrap.min.css: {}
+      asset/css/font-awesome.css: {}
+      asset/css/font-awesome.min.css: {}
+      asset/css/style.css: {}

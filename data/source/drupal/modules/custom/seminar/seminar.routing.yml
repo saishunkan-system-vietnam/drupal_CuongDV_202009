@@ -1,7 +1,23 @@
 seminar.detail:
-    path: /seminar/detail
+    path: '/detail'
     defaults:
         _controller: 'Drupal\seminar\Controller\SeminarController::getDetail'
         _title: 'Get Detail Seminar'
+    requirements:
+        _permission: 'access content'
+
+seminar.formDetail:
+    path: '/seminar/detail'
+    defaults:
+        _controller: 'Drupal\seminar\Controller\SeminarController::getFormDetail'
+        _title: 'Get Form Detail Seminar'
+    requirements:
+        _permission: 'access content'
+
+seminar.confirm:
+    path: '/seminar/confirm'
+    defaults:
+        _controller: 'Drupal\seminar\Controller\SeminarController::confirm'
+        _title: 'Confirm Data'
     requirements:
         _permission: 'access content'

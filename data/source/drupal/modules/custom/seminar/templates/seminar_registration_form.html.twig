@@ -1,0 +1,46 @@
+<div class="form-registration-seminar row">
+    <h3></h3>
+    <form  id="seminar_registration_form" action="/seminar/confirm" method = "post" enctype="multipart/form-data" class="col-lg-12">
+        <table class="test table table-bordered">
+            <tr>
+                <td>Seminar Name</td>
+                <td>{{ form.seminar_name }}</td>
+            </tr>
+            <tr>
+                <td>Seminar Content</td>
+                <td>{{ form.seminar_content }}</td>
+            </tr>
+            <tr>
+                <td>Place Date of Seminar</td>
+                <td>{{ form.place_date }}</td>
+            </tr>
+            <tr>
+                <td>Registration start date</td>
+                <td>{{ form.regis_start_date }}</td>
+            </tr>
+            <tr>
+                <td>Registration end date</td>
+                <td>{{ form.regis_end_date }}</td>
+            </tr>
+            <tr>
+                <td>Speaker Name</td>
+                <td>{{ form.speaker_name }}</td>
+            </tr>
+            <tr>
+                <td>Speaker Img</td>
+                <td>{{ form.img }}</td>
+            </tr>
+            <tr>
+                <td>Speaker Content Title</td>
+                <td>{{ form.title }}</td>
+            </tr>
+            <tr>
+                <td>Speaker Content</td>
+                <td>{{ form.content }}</td>
+            </tr>
+              <tr>
+                <td colspan = "2">{{ form.submit }}</td>
+            </tr>
+        </table>
+    </form>
+</div>
