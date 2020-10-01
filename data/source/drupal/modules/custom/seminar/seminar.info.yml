@@ -1,8 +1,0 @@
-name: Seminar
-type: module
-core: 8.x
-core_version_requirement: ^8
-package: Seminar Module
-version: 1
-dependencies:
-    - block

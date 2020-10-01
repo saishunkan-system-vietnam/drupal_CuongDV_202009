@@ -1,8 +1,0 @@
-global-css:
-  version: 1.x
-  css:
-    theme:
-      asset/css/bootstrap.min.css: {}
-      asset/css/font-awesome.css: {}
-      asset/css/font-awesome.min.css: {}
-      asset/css/style.css: {}
