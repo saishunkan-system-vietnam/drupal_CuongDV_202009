@@ -1,0 +1,14 @@
+global-styling:
+    css:
+        theme:
+            assets/css/elements.css: {}
+            assets/css/styles.css: {}
+            assets/css/layout.css: {}
+            assets/css/print.css: { media: print }
+            assets/css/navigation.css: {}
+            assets/css/animate.css: {}
+            assets/css/bootstrap.min.css: {}
+            assets/css/font-awesome.min.css: {}
+            assets/css/slick.css: {}
+            assets/css/style.css: {}
+            assets/css/theme.css: {}

@@ -1,0 +1,65 @@
+#start with our base image (the foundation) - version 7.3
+FROM php:7.3-apache
+ENV DEBIAN_FRONTEND noninteractive
+ENV COMPOSER_ALLOW_SUPERUSER 1
+
+RUN apt-get update && \
+     apt-get install dialog apt-utils -y &&\
+     apt-get install -y \
+        sendmail \
+        iputils-ping \
+        libpng-dev \
+        zlib1g-dev \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libmcrypt-dev \
+        libicu-dev \
+        libxml2-dev \
+        libjpeg-dev \
+        libwebp-dev \
+        libxpm-dev \
+        libzip-dev \
+        libmcrypt-dev \
+        zip \
+        unzip
+
+RUN rm -r /var/lib/apt/lists/* \
+    && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
+    && docker-php-ext-configure gd \
+        --with-gd \
+        --with-webp-dir \
+        --with-jpeg-dir \
+        --with-png-dir \
+        --with-zlib-dir \
+        --with-xpm-dir \
+        --with-freetype-dir \
+    && docker-php-ext-install \
+      intl \
+      pdo_mysql \
+      gd \
+      zip \
+      xml\
+    && docker-php-ext-enable gd
+
+#install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
+
+#set our application folder as an environment variable
+ENV APP_HOME /var/www/html/
+ENV APACHE2_CONF_HOME /etc/apache2/sites-available/
+
+#copy source files
+COPY ./data/conf/httpd/ssv.conf $APACHE2_CONF_HOME
+COPY ./data/scripts/httpd/composer.sh /tmp/
+
+# enable the virtual host files
+RUN a2ensite ssv.conf
+
+#change uid and gid of apache to docker user uid/gid
+RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
+
+# enable apache module rewrite
+RUN a2enmod rewrite
+
+#change ownership of our applications
+RUN chown -R www-data:www-data $APP_HOME

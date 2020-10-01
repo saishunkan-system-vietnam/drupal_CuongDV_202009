@@ -1,0 +1,16 @@
+name: Seminar Theme
+type: theme
+description: 'This for module Seminar'
+core: 8.x
+libraries:
+    - seminar/global-styling
+screenshot: theme.jpg
+
+regions:
+    seminar_menu: Navigation
+    header: Header
+    content: Content
+    sidebar_first: Siderbar First
+    footer: Footer
+    page_top: Page Top
+    page_bottom: Page Bottom

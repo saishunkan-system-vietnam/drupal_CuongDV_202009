@@ -1,0 +1,11 @@
+FROM mariadb:10.4.7
+LABEL description="MariaDB 10.4"
+EXPOSE 3306
+
+# copy conf
+COPY ./data/conf/mysql/ /etc/mysql/
+
+# copy scripts initdb
+COPY ./data/scripts/mysql/develop.conf /tmp/
+COPY ./data/scripts/mysql/initdb.sh /docker-entrypoint-initdb.d/
+COPY ./data/scripts/mysql/db.sql /tmp/
