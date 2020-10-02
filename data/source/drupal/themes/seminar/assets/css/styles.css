@@ -1,3 +1,15 @@
 body {
   font-family: "Times New Roman", Times, serif;
 }
+.title-content {
+  background-color: cornflowerblue;
+}
+.seminar-title {
+  background-color: darksalmon;
+}
+.uid-seminar{
+  background-color: deeppink;
+}
+.user-seminar{
+  background-color: dimgray;
+}
