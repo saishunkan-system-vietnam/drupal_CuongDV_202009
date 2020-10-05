@@ -71,7 +71,8 @@
  */
 #}
 <article{{ attributes }}>
-
+  <header role="banner">
+  {{kint(content_attributes)}}
   {{ title_prefix }}
   {% if not page %}
     <h2{{ title_attributes }}>
