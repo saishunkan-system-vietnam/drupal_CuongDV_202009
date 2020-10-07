@@ -3,7 +3,7 @@ type: theme
 description: 'This for module Seminar'
 core: 8.x
 libraries:
-    - seminar/global-styling
+    - seminar_theme/global-styling
 screenshot: theme.jpg
 
 regions:

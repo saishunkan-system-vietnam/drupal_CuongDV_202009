@@ -1,0 +1,6 @@
+name: Seminar
+core: 8.x
+type: module
+package: Module Custom
+description: 'This is my custom module'
+version: '1.0'

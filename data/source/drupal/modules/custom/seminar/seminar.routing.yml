@@ -1,0 +1,30 @@
+seminar.form:
+    path: '/seminar-register'
+    defaults:
+      _title: 'Register Seminar'
+      _controller: '\Drupal\seminar\Controller\SeminarController::getForm'
+    requirements:
+      _permission: 'access content'
+    options:
+      no_cache: 'TRUE'
+
+seminar.confirm:
+  path: '/seminar-register/confirm'
+  defaults:
+    _title: 'Confirm Apply Seminar'
+    _controller: '\Drupal\seminar\Controller\SeminarController::confirm'
+  requirements:
+    _permission: 'access content'
+    _role: 'authenticated'
+  options:
+    no_cache: 'TRUE'
+
+seminar.test:
+    path: '/test'
+    defaults:
+        _title: 'Test'
+        _controller: '\Drupal\seminar\Controller\SeminarController::test'
+    requirements:
+        _permission: 'access content'
+    options:
+        no_cache: 'TRUE'    

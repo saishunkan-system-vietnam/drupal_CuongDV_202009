@@ -71,8 +71,7 @@
  */
 #}
 <article{{ attributes }}>
-  <header role="banner">
-  {{kint(content_attributes)}}
+
   {{ title_prefix }}
   {% if not page %}
     <h2{{ title_attributes }}>
@@ -80,18 +79,16 @@
     </h2>
   {% endif %}
   {{ title_suffix }}
+  <div{{ content_attributes }}>
+    {{ content }}
+  </div>
   {% if display_submitted %}
     <footer>
       {{ author_picture }}
-      <div{{ author_attributes }} class="user-seminar">
+      <div class='author-post'>
         {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
         {{ metadata }}
       </div>
     </footer>
   {% endif %}
-
-  <div{{ content_attributes }}>
-    {{ content }}
-  </div>
-
 </article>

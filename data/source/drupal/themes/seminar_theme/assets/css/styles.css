@@ -1,0 +1,25 @@
+body {
+  font-family: "Times New Roman", Times, serif;
+}
+.title-content {
+  background-color: cornflowerblue;
+}
+.seminar-title {
+  background-color: darksalmon;
+}
+.uid-seminar {
+  background-color: rgba(100, 238, 9, 0.788);
+}
+.author-post {
+  background-color: rgb(189, 170, 170);
+}
+.field--name-title-full {
+  text-align: center;
+}
+.menu-local-tasks-primary-custom {
+  margin-left: 80%;
+}
+.menu-local-tasks-primary-custom li {
+  padding: 15px;
+  display: inline-block;
+}

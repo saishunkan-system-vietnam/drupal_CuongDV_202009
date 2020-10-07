@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Theme override for a local task link.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the wrapper element.
+ * - is_active: Whether the task item is an active tab.
+ * - link: A rendered link element.
+ *
+ * Note: This template renders the content for each task item in
+ * menu-local-tasks.html.twig.
+ *
+ * @see template_preprocess_menu_local_task()
+ */
+#}
+{# {% if link['#title'].arguments %}
+   <li class='menu-local-{{link['#title'].arguments['@local-task-title']}}'>{{ link }}</li>
+{% else %} #}
+    {# users is probably a string #}
+    {% if link['#title'] == 'Revisions' or link['#title'] == 'Devel' or link['#title'].arguments['@local-task-title'] == 'View'%}
+        <li class='menu-local-{{link['#title']}} hidden'></li>
+    {% else %}
+        {% if link['#title'] == 'Edit' %}
+        <li class='menu-local-{{link['#title']}}'><button class="btn-success">{{ link }}</button></li>
+         {% else %}
+           <li class='menu-local-{{link['#title']}}'><button class="btn-danger">{{ link }}</button></li>
+        {% endif %}
+    {% endif %}
+{# {% endif %} #}

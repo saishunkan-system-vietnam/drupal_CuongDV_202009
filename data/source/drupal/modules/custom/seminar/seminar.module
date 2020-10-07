@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Implementing our hooks.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function seminar_theme($existing, $type, $theme, $path){
+    $path = 'modules/custom/seminar/templates';
+    return [
+        'formregistration' => [
+            'variables' => [
+                'form' => NULL,
+                'items' => [],
+            ],
+            'path' => $path,
+            'template' => 'formregistration',
+            'render element' => 'form'
+        ],
+    ];
+}

@@ -1,0 +1,190 @@
+<?php
+use Drupal\block\Entity\Block;
+
+/**
+ * @file
+ * Functions to support theming in the seminar theme.
+ */
+
+/**
+ * Implements hook_preprocess_HOOK() for page templates.
+ *
+ * Adds body classes if certain regions have content.
+ */
+function seminar_theme_preprocess_page(&$variables) {
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for paragraph templates.
+ *
+ * Adds body classes if certain regions have content.
+ */
+function seminar_theme_preprocess_paragraph(&$variables){
+
+}
+
+// Add content type suggestions, e.g. page--node--article.html.twig.
+function seminar_theme_theme_suggestions_page_title_alter(array &$suggestions, array $variables) {
+  // Are we looking at a node?
+  // Suggestions page overwrites a page.html.twig .....
+  $node = \Drupal::routeMatch()->getParameter('node');
+  // Object check required, sometimes it's a string, yes, really. Who knew?
+  if (!empty($node) && is_object($node)) {
+    if (!empty($node) && is_object($node)) {
+      $suggestions[] = 'page_title__node';
+      $suggestions[] = 'page_title__node_' . $node->getType();
+    }
+  }
+}
+/**
+ * Implements hook_theme_suggestions_field_alter().
+ */
+function seminar_theme_theme_suggestions_field_alter(&$suggestions, array $variables) {
+  $element = $variables['element'];
+  // Suggestions following views mode full-page or list mode
+  $suggestions[] = 'field__' . $element['#entity_type'] . '__' . 
+  $element['#field_name'] . '__' . $element['#bundle'] . '__' . 
+  $element['#view_mode'];
+
+  $suggestions[] = 'field__' . $element['#entity_type'] . '__' . 
+  $element['#field_name'] . '__' . $element['#view_mode'];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * Pass block region value to content so this can be used in
+ * MYTHEME_theme_suggestions_menu_alter.
+ */
+function seminar_theme_preprocess_block(&$variables) {
+  if (isset($variables['elements']['#id'])) {
+    $region = Block::load($variables['elements']['#id'])->getRegion();
+    $variables['content']['#attributes']['region'] = $region;
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ *
+ * Provide region based menu suggestions.
+ */
+function seminar_theme_theme_suggestions_menu_alter(&$suggestions, array $variables) {
+  // . $variables['menu_name'] . '__' 
+  $modulename = basename(__FILE__, '.theme');
+  if (isset($variables['attributes']['region'])) {
+    $suggestion = 'menu__' . $modulename. '__' . $variables['attributes']['region'];
+    $suggestion = str_replace('-', '_', $suggestion);
+    $suggestions[] = $suggestion;
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for field templates.
+ *
+ * Adds body classes if certain regions have content.
+ */
+function seminar_theme_preprocess_field(&$variables){
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for view templates.
+ *
+ * Adds body classes if certain regions have content.
+ */
+function seminar_theme_preprocess_views_view(&$variables){
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for view fields templates.
+ *
+ * Adds body classes if certain regions have content.
+ */
+function seminar_theme_preprocess_views_view_fields(&$variables){
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for views field templates.
+ *
+ * Adds body classes if certain regions have content.
+ */
+function seminar_theme_preprocess_views_view_field(&$variables){
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ *
+ * Add views unformatted template suggestions.
+ * 
+ * @inheritdoc
+ */
+function seminar_theme_theme_suggestions_views_view_unformatted_alter(array &$suggestions, array $variables) {
+    return [
+      'views_view_unformatted__' . $variables['view']->id()
+    ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ *
+ * Add views template suggestions.
+ * 
+ * @inheritdoc
+ */
+function seminar_theme_theme_suggestions_views_view(array $variables) {
+    return [
+      'views_view_display__' . $variables['view']->current_display,
+    ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ *
+ * Add views template suggestions.
+ * 
+ * @inheritdoc
+ */
+function seminar_theme_theme_suggestions_views_view_alter(array &$suggestions, array $variables) {
+    return [
+      'views_view__' . $variables['view']->id()
+    ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ *
+ * Add views field template suggestions.
+ * 
+ * @inheritdoc
+ */
+function seminar_theme_theme_suggestions_views_view_field(array $variables) {
+    return [
+      'views_view_field__' . $variables['field']->field
+    ];
+}
+
+/**
+ * Implements hook_theme().
+ *
+ * Add template files to the theme.
+ * 
+ * @inheritdoc
+ */
+// function seminar_theme($existing, $type, $theme, $path) {
+//     return [
+//       // Field templates.
+//       'views_view_field__my_field_name' => [
+//         'template' => 'views-view-field--my-field-name',
+//         'base hook' => 'views_view_field',
+//       ],
+//       // Views templates.
+//       'views_view__my_views_block' => [
+//         'template' => 'views-view--my-views-id',
+//         'base hook' => 'views_view',
+//       ],
+//       // Views unformatted templates.
+//       'views_view_unformatted__my_views_block' => [
+//         'template' => 'views-view-unformatted--my-views-id',
+//         'base hook' => 'views_view_unformatted',
+//       ],
+//     ];
+//}

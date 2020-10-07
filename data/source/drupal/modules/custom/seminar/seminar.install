@@ -1,0 +1,99 @@
+<?php
+function seminar_schema() {
+    $schema= array();
+    // create seminar register table
+    $schema['seminar_registration'] = array(
+        'description' => 'Stores value in seminar registration table',
+        'fields' => array(
+            'srid' => array(
+                'type' => 'serial',
+                'not null' => TRUE,
+                'description' => 'Primary Key: Unique id for seminar registration',
+            ),
+            'uid' => array(
+                'type' => 'int',
+                'not null' => TRUE,
+                'description' => 'user id for seminar registration',
+            ),
+            'last_name' => array(
+                'type' => 'varchar',
+                'length' => 100,
+                'not null' => TRUE,
+                'default' => '',
+                'description' => 'Last Name',
+            ),
+            'first_name' => array(
+                'type' => 'varchar',
+                'length' => 100,
+                'not null' => TRUE,
+                'default' => '',
+                'description' => 'First Name',
+            ),
+            'sex' => array(
+                'type' => 'int',
+                'size' => 'tiny',
+                'not null' => FALSE,
+                'default' => NULL,
+                'description' => 'Gender',
+            ),
+            'company_name' => array(
+                'type' => 'varchar',
+                'length' => 100,
+                'not null' => FALSE,
+                'default' => '',
+                'description' => 'Company Name',
+            ),
+            'phone' => array(
+                'type' => 'varchar',
+                'length' => 11,
+                'default' => '',
+                'not null' => FALSE,
+                'description' => 'Phone number',
+            ),
+            'email' => array(
+                'type' => 'varchar',
+                'length' => 100,
+                'not null' => TRUE,
+                'default' => '',
+                'description' => 'E-mail Adrress',
+            ),
+        ),
+        'primary key' => array('srid'),
+    );
+
+    // create seminar register detail table
+    $schema['seminar_registration_details'] = array(
+        'description' => 'Stores value in seminar registration details table',
+        'fields' => array(
+            'srdid' => array(
+                'type' => 'serial',
+                'not null' => TRUE,
+                'description' => 'Primary Key: Unique id for seminar registration detail',
+            ),
+            'srid' => array(
+                'type' => 'int',
+                'not null' => TRUE,
+                'description' => 'id for seminar registration',
+            ),
+            'nid' => array(
+                'type' => 'int',
+                'not null' => TRUE,
+                'description' => 'Node id',
+            ),
+            'theme_name' => array(
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => FALSE,
+                'description' => 'テーマ名',
+            ),
+            'date_time' => array(
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => FALSE,
+                'description' => '日時',
+            ),
+        ),
+        'primary key' => array('srdid'),
+    );
+    return $schema;
+}
