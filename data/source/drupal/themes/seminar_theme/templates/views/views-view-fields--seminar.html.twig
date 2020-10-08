@@ -29,6 +29,8 @@
  * @see template_preprocess_views_view_fields()
  */
 #}
+
+
 {% for field in fields -%}
   {{ field.separator }}
   {%- if field.wrapper_element -%}
@@ -50,3 +52,4 @@
     </{{ field.wrapper_element }}>
   {%- endif %}
 {%- endfor %}
+ {{ kint(row._entity.fields.field_seminar_place_date) }}

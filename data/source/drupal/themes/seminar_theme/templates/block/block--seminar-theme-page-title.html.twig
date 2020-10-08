@@ -32,6 +32,6 @@
   {% endif %}
   {{ title_suffix }}
   {% block content %}
-    {{ content }}
+    <h1 class="page-seminar-title">{{ content['#title'] }}</h1> 
   {% endblock %}
 </div>

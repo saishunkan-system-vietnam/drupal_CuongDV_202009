@@ -23,3 +23,16 @@ body {
   padding: 15px;
   display: inline-block;
 }
+/* .title-seminar-list {
+  text-align: center;
+} */
+.page-seminar-title {
+  text-align: center;
+}
+.list-seminar {
+  margin: 20px 0;
+}
+.apply-seminar {
+  width: 100%;
+  height: 100%;
+}
