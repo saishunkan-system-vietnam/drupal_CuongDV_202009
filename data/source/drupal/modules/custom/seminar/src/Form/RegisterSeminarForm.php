@@ -46,8 +46,13 @@ class RegisterSeminarForm extends FormBase
             $optionGender[$item->tid] = $this->t($item->name);
         }
         $form['sex'] = array(
-            '#type' => 'textfield',
+            '#type' => 'select',
             '#title' => t('Gender'),
+            '#options' => array(
+                '1' => t('Men'),
+                '2' => t('Women'),
+                '3' => t('Other'),
+                    ),
             '#default_value' => !empty($dataSession['sex']) ? t($dataSession['sex']) : null,
             '#required' => false,
         );
@@ -60,7 +65,7 @@ class RegisterSeminarForm extends FormBase
         );
         $form['phone'] = array(
             '#type' => 'textfield',
-            '#title' => t('(Phone Number)'),
+            '#title' => t('Phone Number'),
             '#attributes' => array(
               'oninput' => 'this.value = this.value.replace(/[^0-9.]/g, \'\').replace(/(\..*)\./g, \'$1\');'),
             '#size' => 11,
@@ -71,7 +76,7 @@ class RegisterSeminarForm extends FormBase
         );
         $form['email'] = array(
             '#type' => 'textfield',
-            '#title' => $this->t('(Email Address)'),
+            '#title' => $this->t('Email Address'),
             '#default_value' => !empty($dataSession['email']) ? t($dataSession['email']) : '',
             '#attributes' => !empty($dataSession['email']) ? array('readonly' => 'readonly') : array(),
             '#required' => false,

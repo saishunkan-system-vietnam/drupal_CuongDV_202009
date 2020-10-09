@@ -17,7 +17,7 @@ body {
   text-align: center;
 }
 .menu-local-tasks-primary-custom {
-  margin-left: 80%;
+  margin-left: 60%;
 }
 .menu-local-tasks-primary-custom li {
   padding: 15px;
@@ -35,4 +35,27 @@ body {
 .apply-seminar {
   width: 100%;
   height: 100%;
+}
+.disabled-link a {
+  cursor: default;
+  pointer-events: none;        
+  text-decoration: none;
+  color: white;
+}
+.disabled-link button {
+  cursor: not-allowed;
+  pointer-events: none;
+
+  /*Button disabled - CSS color class*/
+  color: #c0c0c0;
+  background-color: gray;
+}
+.enabled-link button {
+  background-color: greenyellow;
+}
+.apply-seminar-detail {
+  margin: 20px 0;
+  width: 100%;
+  height: 100%;
+  background-color: greenyellow;
 }

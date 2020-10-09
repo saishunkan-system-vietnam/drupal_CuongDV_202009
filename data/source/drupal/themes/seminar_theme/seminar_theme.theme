@@ -87,7 +87,16 @@ function seminar_theme_theme_suggestions_menu_alter(&$suggestions, array $variab
  *
  * Adds body classes if certain regions have content.
  */
-function seminar_theme_preprocess_field(&$variables){
+function seminar_theme_preprocess_field(&$variables, $hook){
+  $node = $variables['element']['#object'];
+  $variables['node'] = $variables['element']['#object'];
+}
+
+function seminar_theme_preprocess_menu_local_tasks(&$variables) {
+ 
+  if ($node = \Drupal::request()->attributes->get('node')) {
+    $variables['node'] = $node->id();
+  }
 }
 
 /**
@@ -104,6 +113,9 @@ function seminar_theme_preprocess_views_view(&$variables){
  * Adds body classes if certain regions have content.
  */
 function seminar_theme_preprocess_views_view_fields(&$variables){
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    $variables['node'] = $node;
+  }
 }
 
 /**
@@ -114,6 +126,9 @@ function seminar_theme_preprocess_views_view_fields(&$variables){
 function seminar_theme_preprocess_views_view_field(&$variables) {
   $variables['output'] = $variables['field']
     ->advancedRender($variables['row']);
+    if ($node = \Drupal::request()->attributes->get('node')) {
+      $variables['node'] = $node->id();
+    }
 }
 
 /**

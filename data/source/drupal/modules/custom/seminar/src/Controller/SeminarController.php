@@ -6,7 +6,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Drupal\Core\Database\Database;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-
+use Connection\Database\Connection;
 
 /**
  * Provides route responses for the Example module.
@@ -49,7 +49,8 @@ class SeminarController extends ControllerBase
             'email' => !empty($data['email']) ?  $data['email'] : '',
             'company_name' => !empty($data['company_name']) ?  $data['company_name'] : '',
         );
-        if (!$this->saveData($seminar, 'seminar_registration')) {
+        $last_id = $this->saveData($seminar, 'seminar_registration');
+        if ($last_id) {
             $message = t('Confirm Succerss');
         } else {
             $message = t('Confirm fail');
@@ -72,6 +73,14 @@ class SeminarController extends ControllerBase
 
     protected function saveData(array $args, $table)
     {
-        $this->conn->insert($table)->fields($args)->execute();
+        $id = $this->conn->insert($table)->fields($args)->execute();
+        return $id;
+    }
+
+    public function listRegister($node) {
+        return [  
+            '#type' => 'markup',
+            '#markup' => t('This aaa'),
+        ];
     }
 }

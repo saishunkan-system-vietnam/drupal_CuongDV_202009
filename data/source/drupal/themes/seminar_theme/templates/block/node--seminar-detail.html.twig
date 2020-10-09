@@ -71,7 +71,6 @@
  */
 #}
 <article{{ attributes }}>
-
   {{ title_prefix }}
   {% if not page %}
     <h2{{ title_attributes }}>
@@ -80,7 +79,22 @@
   {% endif %}
   {{ title_suffix }}
   <div{{ content_attributes }}>
-    {{ content }}
+    {{ content.field_seminar_place_date }}
+    {{ content.field_seminar_register_date }}
+    {{ content.field_seminar_name }}
+    {{ content.field_seminar_content }}
+    {{ content.field_seminar_speaker_name }}
+    {{ content.field_seminar_speaker_image }}
+    {{ content.field_seminar_speaker_name_2 }}
+    {{ content.field_seminar_speaker_image_2 }}
+    {{ content.field_seminar_speaker_name_3 }}
+    {{ content.field_seminar_speaker_image_3 }}
+    {% if (content.field_seminar_register_date.0['#attributes'].datetime| date("Y/m/d") < 'now'|date("Y/m/d")) %}
+      <div class="disabled-link">{{ content.field_seminar_apply }}</div>
+    {% else %}
+      <div class="enabled-link">{{ content.field_seminar_apply }}</div>
+    {% endif %}
+    
   </div>
   {% if display_submitted %}
     <footer>

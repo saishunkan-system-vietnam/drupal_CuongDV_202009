@@ -1,5 +1,5 @@
 seminar.form:
-    path: '/seminar-register'
+    path: '/seminar-register/{node}'
     defaults:
       _title: 'Register Seminar'
       _controller: '\Drupal\seminar\Controller\SeminarController::getForm'
@@ -27,4 +27,14 @@ seminar.test:
     requirements:
         _permission: 'access content'
     options:
-        no_cache: 'TRUE'    
+        no_cache: 'TRUE'
+
+seminar.list_register:
+    path: '/seminar/list-register/{node}'
+    defaults:
+        _title: 'List Users Register'
+        _controller: '\Drupal\seminar\Controller\SeminarController::listRegister'
+    requirements:
+        _permission: 'access content'
+    options:
+      no_cache: 'TRUE'

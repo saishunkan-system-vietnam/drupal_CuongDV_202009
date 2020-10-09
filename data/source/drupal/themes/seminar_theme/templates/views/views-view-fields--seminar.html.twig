@@ -29,27 +29,17 @@
  * @see template_preprocess_views_view_fields()
  */
 #}
-
-
-{% for field in fields -%}
-  {{ field.separator }}
-  {%- if field.wrapper_element -%}
-    <{{ field.wrapper_element }}{{ field.wrapper_attributes }}>
-  {%- endif %}
-  {%- if field.label -%}
-    {%- if field.label_element -%}
-      <{{ field.label_element }}{{ field.label_attributes }}>{{ field.label }}{{ field.label_suffix }}</{{ field.label_element }}>
-    {%- else -%}
-      {{ field.label }}{{ field.label_suffix }}
-    {%- endif %}
-  {%- endif %}
-  {%- if field.element_type -%}
-    <{{ field.element_type }}{{ field.element_attributes }}>{{ field.content }}</{{ field.element_type }}>
-  {%- else -%}
-    {{ field.content }}
-  {%- endif %}
-  {%- if field.wrapper_element -%}
-    </{{ field.wrapper_element }}>
-  {%- endif %}
-{%- endfor %}
- {{ kint(row._entity.fields.field_seminar_place_date) }}
+{{ fields.field_seminar_place_date.content }}
+{{ fields.field_seminar_name.content }}
+{{ fields.field_seminar_content.content }}
+{{ fields.field_seminar_speaker_name.content }}
+{{ fields.field_seminar_speaker_image.content }}
+{{ fields.field_seminar_speaker_name_2.content }}
+{{ fields.field_seminar_speaker_image_2.content }}
+{{ fields.field_seminar_speaker_image_3.content }}
+{{ fields.field_seminar_speaker_image_3.content }}
+{% if (row._entity.fields.field_seminar_register_date.getValue()['0'].value| date("Y/m/d")) < 'now'|date("Y/m/d") %}
+<div class="disabled-link">{{ fields.field_seminar_apply.content }}</div>
+{% else %}
+<div class="enabled-link">{{ fields.field_seminar_apply.content }}</div>
+{% endif %}
