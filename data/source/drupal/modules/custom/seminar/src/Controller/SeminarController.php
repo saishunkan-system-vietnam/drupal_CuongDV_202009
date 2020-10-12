@@ -28,9 +28,10 @@ class SeminarController extends ControllerBase
         $this->conn = Database::getConnection();
     }
 
-    public function getForm()
+    public function getForm($node)
     {
         $registrationForm = $this->formBuilder->getForm('Drupal\seminar\Form\RegisterSeminarForm');
+        $this->session->set('NODE_ID', $node);
         return [
             '#theme' => 'formregistration',
             '#form' => $registrationForm,
@@ -49,16 +50,26 @@ class SeminarController extends ControllerBase
             'email' => !empty($data['email']) ?  $data['email'] : '',
             'company_name' => !empty($data['company_name']) ?  $data['company_name'] : '',
         );
-        $last_id = $this->saveData($seminar, 'seminar_registration');
-        if ($last_id) {
-            $message = t('Confirm Succerss');
-        } else {
-            $message = t('Confirm fail');
+        $transaction = $this->conn->startTransaction();
+        try{
+            $last_id = $this->saveData($seminar, 'seminar_registration');
+            $seminar_detail = array(
+                'srid' => $last_id,
+                'nid' => $data['node_id'],
+            );
+            $this->saveData($seminar_detail, 'seminar_registration_details');
+            if ($last_id) {
+                $message = t('Confirm Succerss');
+            } else {
+                $message = t('Confirm fail');
+            }
+            return [
+                '#type' => 'markup',
+                '#markup' => $message,
+            ];
+        } catch (Exception $e) {
+            $transaction->rollBack();
         }
-        return [
-            '#type' => 'markup',
-            '#markup' => $message,
-        ];
     }
 
     public function test()
@@ -73,14 +84,19 @@ class SeminarController extends ControllerBase
 
     protected function saveData(array $args, $table)
     {
-        $id = $this->conn->insert($table)->fields($args)->execute();
-        return $id;
+      return $this->conn->insert($table)->fields($args)->execute(); 
     }
 
     public function listRegister($node) {
+        $query = $this->conn->select('seminar_registration_details', 'srd');
+        $query->join('seminar_registration','sr','srd.srid = sr.srid');
+        $query->fields('sr');
+        $query->condition('srd.nid', $node);
+        $list_regis = $query->execute();
+        $data = $list_regis->fetchAll();
         return [  
-            '#type' => 'markup',
-            '#markup' => t('This aaa'),
+            '#theme' => 'list-register',
+            '#items' => $data
         ];
     }
 }

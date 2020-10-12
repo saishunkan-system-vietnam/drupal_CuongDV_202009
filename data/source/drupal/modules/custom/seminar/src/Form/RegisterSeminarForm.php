@@ -31,20 +31,20 @@ class RegisterSeminarForm extends FormBase
             '#title' => t('Last Name'),
             '#size' => 30,
             '#default_value' => !empty($dataSession['last_name']) ? t($dataSession['last_name']) : '',
-            '#required' => false,
+            '#required' => true,
         );
         $form['first_name'] = array(
             '#type' => 'textfield',
             '#title' => t('First Name'),
             '#size' => 30,
             '#default_value' => !empty($dataSession['first_name']) ? t($dataSession['first_name']) : '',
-            '#required' => false,
+            '#required' => true,
         );
-        $taxonomyGender = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('t_gender');
-        $optionGender = [];
-        foreach ($taxonomyGender as $item) {
-            $optionGender[$item->tid] = $this->t($item->name);
-        }
+        // $taxonomyGender = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('t_gender');
+        // $optionGender = [];
+        // foreach ($taxonomyGender as $item) {
+        //     $optionGender[$item->tid] = $this->t($item->name);
+        // }
         $form['sex'] = array(
             '#type' => 'select',
             '#title' => t('Gender'),
@@ -54,14 +54,13 @@ class RegisterSeminarForm extends FormBase
                 '3' => t('Other'),
                     ),
             '#default_value' => !empty($dataSession['sex']) ? t($dataSession['sex']) : null,
-            '#required' => false,
         );
         $form['company_name'] = array(
             '#type' => 'textfield',
             '#title' => t('Company Name'),
             '#size' => 80,
             '#default_value' => !empty($dataSession['company_name']) ? t($dataSession['company_name']) : '',
-            '#required' => false,
+            '#required' => true,
         );
         $form['phone'] = array(
             '#type' => 'textfield',
@@ -72,14 +71,14 @@ class RegisterSeminarForm extends FormBase
             '#maxlength' => 11,
             '#pattern' => '[0-9]{9,11}',
             '#default_value' => !empty($dataSession['phone']) ? t($dataSession['phone']) : '',
-            '#required' => false,
+            '#required' => true,
         );
         $form['email'] = array(
             '#type' => 'textfield',
             '#title' => $this->t('Email Address'),
             '#default_value' => !empty($dataSession['email']) ? t($dataSession['email']) : '',
             '#attributes' => !empty($dataSession['email']) ? array('readonly' => 'readonly') : array(),
-            '#required' => false,
+            '#required' => true,
         );
         $form['node_id'] = array(
             '#type' => 'hidden',
@@ -87,6 +86,13 @@ class RegisterSeminarForm extends FormBase
             '#default_value' => !empty($nodeId) ? $nodeId : '',
             '#required' => false,
         );
+        // $form['submit'] = [
+        //     '#type' => 'submit',
+        //     '#value' => t('Submit') . ' >',
+        //     '#attributes' => [
+        //       'data-twig-suggestion' => 'button',
+        //     ],
+        //   ];
         $form['#theme'] = 'formregistration';
         return $form;
     }

@@ -15,7 +15,6 @@ seminar.confirm:
     _controller: '\Drupal\seminar\Controller\SeminarController::confirm'
   requirements:
     _permission: 'access content'
-    _role: 'authenticated'
   options:
     no_cache: 'TRUE'
 

@@ -32,10 +32,13 @@
 {{ fields.field_seminar_place_date.content }}
 {{ fields.field_seminar_name.content }}
 {{ fields.field_seminar_content.content }}
+</br>
 {{ fields.field_seminar_speaker_name.content }}
 {{ fields.field_seminar_speaker_image.content }}
+</br>
 {{ fields.field_seminar_speaker_name_2.content }}
 {{ fields.field_seminar_speaker_image_2.content }}
+</br>
 {{ fields.field_seminar_speaker_image_3.content }}
 {{ fields.field_seminar_speaker_image_3.content }}
 {% if (row._entity.fields.field_seminar_register_date.getValue()['0'].value| date("Y/m/d")) < 'now'|date("Y/m/d") %}

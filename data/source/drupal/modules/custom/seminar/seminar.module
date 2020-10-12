@@ -20,5 +20,13 @@ function seminar_theme($existing, $type, $theme, $path){
             'template' => 'formregistration',
             'render element' => 'form'
         ],
+        'list-register' => [
+            'template' => 'list-register',
+            'path' => $path,
+            'variables' => [
+                'items' => NULL,
+                'title' => ''
+            ],
+        ],
     ];
 }
