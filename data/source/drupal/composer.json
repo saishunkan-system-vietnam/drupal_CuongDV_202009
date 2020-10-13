@@ -26,7 +26,7 @@
         "drupal/core-recommended": "^8.8",
         "drupal/core-vendor-hardening": "^8.8",
         "drupal/kint": "^2.1",
-        "kint-php/kint": "^3.3"
+        "symfony/property-access": "^5.1"
     },
     "conflict": {
         "drupal/drupal": "*"

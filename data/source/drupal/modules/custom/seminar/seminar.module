@@ -1,5 +1,6 @@
 <?php
 
+use Drupal\Core\Form\FormStateInterface;
 /**
  * @file
  * Implementing our hooks.
@@ -30,3 +31,53 @@ function seminar_theme($existing, $type, $theme, $path){
         ],
     ];
 }
+
+// /**
+// * Implements hook_form_alter().
+// */
+
+// function seminar_form_seminar_registration_alter(&$form, FormStateInterface $form_state, $form_id) {
+//     // Add a new validation function.
+//         if ($form_id == 'seminar_registration'){
+//             $form['#validate'][] = 'seminar_node_form_submit';
+//             return $form;
+//         }
+//     }
+    
+// function seminar_node_form_submit($form, FormStateInterface $form_state) {
+//     // Assert the firstname is valid
+//     if (!$form_state->getValue('first_name') || empty($form_state->getValue('first_name'))) {
+//         $form_state->setErrorByName('first_name', $this->t('Your first name is required.'));
+//     }
+//     // Assert the lastname is valid
+//     if (!$form_state->getValue('last_name') || empty($form_state->getValue('last_name'))) {
+//         $form_state->setErrorByName('last_name', $this->t('Your name is required.'));
+//     }
+
+//     // Assert the email is valid
+//     if (!$form_state->getValue('email') || !filter_var($form_state->getValue('email'), FILTER_VALIDATE_EMAIL)) {
+//         $form_state->setErrorByName('email', $this->t('Your email address appears to be invalid.'));
+//     }
+
+//     // Assert the subject is valid
+//     if (!$form_state->getValue('company_name') || empty($form_state->getValue('company_name'))) {
+//         $form_state->setErrorByName('company_name', $this->t('Your company name is required.'));
+//     }
+
+//     // Assert the message is valid
+//     if (!$form_state->getValue('phone') || empty($form_state->getValue('phone'))) {
+//         $form_state->setErrorByName('phone', $this->t('Your phone number  is required.'));
+//     }
+//     // If validation errors, add inline errors
+//     if ($errors = $form_state->getErrors()) {
+//     // Add error to fields using Symfony Accessor
+//         $accessor = PropertyAccess::createPropertyAccessor();
+//         foreach ($errors as $field => $error) {
+//             if ($accessor->getValue($form, $field)) {
+//                 $accessor->setValue($form, $field.'[#prefix]', '<div class="form-group error">');
+//                 $accessor->setValue($form, $field.'[#suffix]', '<div class="input-error-desc">' .$error. '</div></div>');
+//                 }
+//             }
+//     }
+//     return $form;
+// }

@@ -22,11 +22,9 @@ seminar.test:
     path: '/test'
     defaults:
         _title: 'Test'
-        _controller: '\Drupal\seminar\Controller\SeminarController::test'
+        _form: '\Drupal\seminar\Form\RegisterSeminarForm'
     requirements:
         _permission: 'access content'
-    options:
-        no_cache: 'TRUE'
 
 seminar.list_register:
     path: '/seminar/list-register/{node}'
