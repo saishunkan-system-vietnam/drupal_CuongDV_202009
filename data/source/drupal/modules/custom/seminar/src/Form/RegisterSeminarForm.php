@@ -21,7 +21,7 @@ class RegisterSeminarForm extends FormBase
 
     public function buildForm(array $form, FormStateInterface $form_state)
     {
-        $form['#action'] = '#seminar_registration';
+        $form['#action'] = '/seminar-register/confirm';
         $dataSession = \Drupal::request()->getSession()->get('SEMINAR_REGISTRATION_DATA');
         // if (empty($dataSession)) {
         //     $dataSession = \Drupal::request()->getSession()->get('USER_DATA');
@@ -101,7 +101,7 @@ class RegisterSeminarForm extends FormBase
         );
         $form['submit'] = [
             '#type' => 'submit',
-            '#value' => t('Submit') . ' >',
+            '#value' => t('Save') . ' >',
             '#attributes' => [
               'data-twig-suggestion' => 'button',
             ],

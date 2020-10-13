@@ -25,4 +25,4 @@
 /vendors/*
 
 # Drupal
-/data/source/drupal/sites/default
+# /data/source/drupal/sites/default
