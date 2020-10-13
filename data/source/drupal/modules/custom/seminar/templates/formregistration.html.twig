@@ -1,7 +1,6 @@
 <div class="form-registration">
     <h2>Register Form</h2>
-     <form id="{{form['#id']}}" method="{{ form['#method'] }}" action="{{ form['#action'] }}">
-        {{ form.actions }}
+     <form {{form.attributes}} id="{{form['#id']}}" method="{{ form['#method'] }}" action="{{ form['#action'] }}">
         {{ form.last_name }}
         {{ form.first_name }}
         {{ form.sex }}
@@ -10,5 +9,5 @@
         {{ form.email }}
         {{ form.node_id }}
         {{ form|without('last_name', 'first_name', 'company_name', 'phone', 'email', 'node_id', 'sex') }}
-    </form>     
+    </form>
 </div>
