@@ -40,35 +40,17 @@ class SeminarController extends ControllerBase
 
     public function confirm()
     {
-        $data = $this->request->request->all();
-        $seminar = array(
-            'uid' => $this->user->id(),
-            'first_name' => !empty($data['first_name']) ?  $data['first_name'] : '',
-            'last_name' => !empty($data['last_name']) ?  $data['last_name'] : '',
-            'sex' => !empty($data['sex']) ?  $data['sex'] : '',
-            'phone' => !empty($data['phone']) ?  $data['phone'] : '',
-            'email' => !empty($data['email']) ?  $data['email'] : '',
-            'company_name' => !empty($data['company_name']) ?  $data['company_name'] : '',
-        );
-        $transaction = $this->conn->startTransaction();
-        try{
-            $last_id = $this->saveData($seminar, 'seminar_registration');
-            $seminar_detail = array(
-                'srid' => $last_id,
-                'nid' => $data['node_id'],
-            );
-            $this->saveData($seminar_detail, 'seminar_registration_details');
-            if ($last_id) {
-                $message = t('Confirm Succerss');
-            } else {
-                $message = t('Confirm fail');
-            }
+        $status = $this->request->request->all();
+        if($status == 1){
             return [
                 '#type' => 'markup',
-                '#markup' => $message,
+                '#markup' => t('Confirm Successfully'),
+            ]; 
+        } else {
+            return [
+                '#type' => 'markup',
+                '#markup' => t('Confirm Fail'),
             ];
-        } catch (Exception $e) {
-            $transaction->rollBack();
         }
     }
 
@@ -82,7 +64,7 @@ class SeminarController extends ControllerBase
         ];
     }
 
-    protected function saveData(array $args, $table)
+    public function saveData(array $args, $table)
     {
       return $this->conn->insert($table)->fields($args)->execute(); 
     }

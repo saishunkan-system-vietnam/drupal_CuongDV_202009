@@ -8,9 +8,26 @@ namespace Drupal\seminar\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\seminar\Controller\SeminarController;
+use Drupal\Core\Database\Database;
+use Connection\Database\Connection;
 
 class RegisterSeminarForm extends FormBase
 {
+    protected $request;
+    protected $session;
+    protected $conn;
+    protected $user;
+    
+    public function __construct()
+    {
+        $this->seminar = new SeminarController();
+        $this->request = \Drupal::request();
+        $this->session = \Drupal::request()->getSession();
+        $this->conn = Database::getConnection();
+        $this->user = \Drupal::currentUser();
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -21,11 +38,8 @@ class RegisterSeminarForm extends FormBase
 
     public function buildForm(array $form, FormStateInterface $form_state)
     {
-        $form['#action'] = '/seminar-register/confirm';
+        // $form['#action'] = '/seminar-register/confirm';
         $dataSession = \Drupal::request()->getSession()->get('SEMINAR_REGISTRATION_DATA');
-        // if (empty($dataSession)) {
-        //     $dataSession = \Drupal::request()->getSession()->get('USER_DATA');
-        // }
         $nodeId = \Drupal::request()->getSession()->get('NODE_ID');
         $form['last_name'] = array(
             '#type' => 'textfield',
@@ -45,11 +59,6 @@ class RegisterSeminarForm extends FormBase
             '#prefix'      => '<div class="form-group">',
             '#suffix'      => '</div>',
         );
-        // $taxonomyGender = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('t_gender');
-        // $optionGender = [];
-        // foreach ($taxonomyGender as $item) {
-        //     $optionGender[$item->tid] = $this->t($item->name);
-        // }
         $form['sex'] = array(
             '#type' => 'select',
             '#title' => t('Gender'),
@@ -86,7 +95,6 @@ class RegisterSeminarForm extends FormBase
             '#type' => 'email',
             '#title' => $this->t('Email Address'),
             '#default_value' => !empty($dataSession['email']) ? t($dataSession['email']) : '',
-            '#attributes' => !empty($dataSession['email']) ? array('readonly' => 'readonly') : array(),
             '#required' => false,
             '#prefix'      => '<div class="form-group">',
             '#suffix'      => '</div>',
@@ -154,6 +162,7 @@ class RegisterSeminarForm extends FormBase
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
         // get uid
+        // die('submit');
         $uid = \Drupal::currentUser()->id();
         $session = \Drupal::request()->getSession();
         $formData = [
@@ -162,10 +171,40 @@ class RegisterSeminarForm extends FormBase
             'last_name' => $form_state->getValue('last_name'),
             'email' => $form_state->getValue('email'),
             'phone' => $form_state->getValue('phone'),
+            'company_name' => $form_state->getValue('company_name'),
         ];
         $session->set('SEMINAR_REGISTRATION_DATA', $formData);
-        $url = Url::fromRoute('seminar.confirm');
-        $form_state->setRedirectUrl($url);
+        $data = $this->request->request->all();
+        $seminar = array(
+            'uid' => $this->user->id(),
+            'first_name' => !empty($data['first_name']) ?  $data['first_name'] : '',
+            'last_name' => !empty($data['last_name']) ?  $data['last_name'] : '',
+            'sex' => !empty($data['sex']) ?  $data['sex'] : '',
+            'phone' => !empty($data['phone']) ?  $data['phone'] : '',
+            'email' => !empty($data['email']) ?  $data['email'] : '',
+            'company_name' => !empty($data['company_name']) ?  $data['company_name'] : '',
+        );
+        $transaction = $this->conn->startTransaction();
+        try{
+            $last_id = $this->seminar->saveData($seminar, 'seminar_registration');
+            $seminar_detail = array(
+                'srid' => $last_id,
+                'nid' => $data['node_id'],
+            );
+            $this->seminar->saveData($seminar_detail, 'seminar_registration_details');
+            if ($last_id) {
+                $status = 1;
+                $session->remove('SEMINAR_REGISTRATION_DATA', $formData);
+                $url = Url::fromRoute('seminar.confirm');
+                $form_state->setRedirectUrl($url);
+            } else {
+                $status = 2;
+            }
+            $url = Url::fromRoute('seminar.confirm', ['status' => $status]);
+            $form_state->setRedirectUrl($url);
+        } catch (Exception $e) {
+            $transaction->rollBack();
+        }
     }
 
 }
