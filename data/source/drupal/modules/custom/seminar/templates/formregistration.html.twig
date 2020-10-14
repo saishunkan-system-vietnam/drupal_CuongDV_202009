@@ -1,13 +1,75 @@
 <div class="form-registration">
     <h2>Register Form</h2>
-     <form {{form.attributes}} id="{{form['#id']}}" method="{{ form['#method'] }}" action="{{ form['#action'] }}">
-        {{ form.last_name }}
-        {{ form.first_name }}
-        {{ form.sex }}
-        {{ form.company_name }}
-        {{ form.phone }}
-        {{ form.email }}
+    <form id="formregistration" method="POST" action="/seminar-register/confirm">
+        {% if(items.node_id is not null) %}
+            <div class="theme-title">
+                <label>Time</label>
+                    {{ items.title }}
+                    <input type="hidden" name="theme_name" value="{{ items.title }}">
+            </div>
+        {% endif %}
+        <table class="sr-table">
+            <tr>
+                <td width="20%" class="sr-label">
+                    <label>Name</label>
+                </td>
+                <td width="80%" class="form-lable">
+                    <div id="div-last-name" class="first-hf-error"><p id="last-name-error"> </p></div>
+                    <div id="div-first-name" class="last-hf-error"><p id="first-name-error"> </p></div>
+                    {{ form.first_name }}
+                    {{ form.last_name }}
+                </td>
+            </tr>
+            <tr>
+                <td width="20%" class="sr-label">
+                    <label>Gender</label>
+                </td>
+                <td width="80%" class="form-lable">{{ form.sex }}</td>
+            </tr>
+
+            <tr>
+                <td width="20%" class="sr-label">
+                    <label>Company Name</label>
+                </td>
+                <td width="80%" class="form-lable">
+                  <div id="div-company-name" class="full-error"><p id="company-name-error"> </p></div>
+                  {{ form.company_name }}
+                </td>
+            </tr>
+            <tr>
+                <td width="20%" class="sr-label">
+                    <label>Phone Number</label>
+                </td>
+                <td width="80%" class="form-lable">
+                    {{ form.phone }}
+                </td>
+            </tr>
+            <tr>
+                <td width="20%" class="sr-label-ct">
+                    <label>Email Address</label>
+                </td>
+                <td width="80%" class="form-lable">
+                    <div id="div-email" class="full-error-email"><p id="email-error"> </p></div>
+                    {{ form.email }}
+                    <div id="email-note-pdl">
+                    </div>
+                </td>
+            </tr>
+        </table>
+        {% if(items.node_id is null) %}
+            <input type="hidden" name="action" value="action_save">
+            <input type="hidden" name="edit_profile" value="edit_profile">
+        {% else %}
+            <input type="hidden" name="action" value="action_confirm">
+        {% endif %}
         {{ form.node_id }}
-        {{ form|without('last_name', 'first_name', 'company_name', 'phone', 'email', 'node_id', 'sex') }}
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-submit" type="submit">
+                    <div class="div--button-register submit-formregis">Save</div>
+                </button>
+            </div>
+        </div>
     </form>
+    <input type="hidden" name="complete_flg" id="complete_flg" value="{{ items.complete_flg }}">
 </div>
